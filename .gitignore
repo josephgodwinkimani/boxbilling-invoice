@@ -1,0 +1,5 @@
+phpcbf.phar
+phpcs.phar
+phpmd.phar
+tests/
+vendor/
