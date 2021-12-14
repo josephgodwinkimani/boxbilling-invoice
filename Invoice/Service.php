@@ -1233,7 +1233,7 @@ class Service implements InjectionAwareInterface
         $invoice_info = __("Invoice number: ") . $invoice['nr'] . "\n" .
             __("Invoice date: ") . $invoiceDate . "\n" .
             __("Due date: ") . strftime($localeDateFormat, strtotime($invoice['due_at'])) . "\n" .
-            __("Invoice status: ") . ucfirst($invoice['status']);
+            __("Invoice status: ") . ucfirst(.'<b>'.$invoice['status'].'</b>'.) ;
         $pdf->SetFont('DejaVu', 'B', $font_size);
         $pdf->text($left + 15, 75, __("Invoice"));
         $pdf->SetFont('DejaVu', '', $font_size);
@@ -1308,12 +1308,14 @@ class Service implements InjectionAwareInterface
         $pdf->Cell(40, 10, $this->money($invoice['total'], $currencyCode), 'LRTB', 0, 'C');
         $pdf->Ln();
 
+        if (!empty($transaction)) {
         $pdf->SetXY(10, $y + 40);
         $pdf->SetFont('DejaVu', 'B', $font_size + 2);
         $pdf->Cell(40, 10, __('Payments'), 'LRTB', 0, 'C');
         $pdf->SetFont('DejaVu', '', $font_size + 1);
         $pdf->Cell(150, 10,  $transaction, 'LRTB', 0, 'C');
         $pdf->Ln();
+        }
 
         $pdf->Output($invoice["serie_nr"] . ".pdf", "I");
     }
